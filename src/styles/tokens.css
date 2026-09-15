@@ -10,4 +10,16 @@
   --font-heading: ui-serif, Georgia, serif;
   --space-1: .5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2.5rem; --space-5: 4.5rem;
   --radius-sm: .375rem; --radius-md: .75rem; --shadow-sm: 0 1px 2px rgb(0 0 0 / .08); --content-width: 70rem;
+
+  /* Bridge: Astrology edits these semantic tokens; Lumos consumes the aliases. */
+  --background: var(--color-background);
+  --surface: var(--color-surface);
+  --text: var(--color-text);
+  --text-2: var(--color-muted);
+  --border: var(--color-border);
+  --brand-500: var(--color-primary);
+  --brand-text: var(--color-text);
+  --primary-family: var(--font-sans);
+  --radius-small: var(--radius-sm);
+  --radius-main: var(--radius-md);
 }

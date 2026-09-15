@@ -1,8 +1,41 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
-import { t } from '../i18n/ui'
-const copy = t('it')
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Wrapper/Section.astro";
+import Heading from "@/components/Typography/Heading.astro";
+import Eyebrow from "@/components/Typography/Eyebrow.astro";
+import Img from "@/components/Media/Img.astro";
+import lumos_background from "@/assets/graphics/lumos-background.svg";
+import Icon from "@/components/Media/Icon.astro";
+import logo_icon from "@/assets/logo/logo-icon.svg";
+import ContentWrapper from "@/components/Wrapper/ContentWrapper.astro";
 ---
-<BaseLayout locale="it" title={copy.hero} description={copy.lede}>
-  <section class="hero"><p class="eyebrow">{copy.starter}</p><h1>{copy.hero}</h1><p class="lede">{copy.lede}</p><a class="button" href="/about">{copy.cta}</a></section>
-</BaseLayout>
+
+<Layout theme="dark" locale="it">
+  <Section
+    paddingBottom="even"
+    containerClass="flex-grow"
+    paddingTop="even"
+    class="flex-grow"
+    style="min-height: calc(100svh - var(--nav-height));"
+  >
+    <ContentWrapper
+      class="flex-grow theme-brand"
+      variant="card"
+      mediaOpacity={100}
+    >
+      <Icon src={logo_icon} variant="large" />
+      <Heading variant="display" tag="h1" class="margin-block-8"
+        >Il tuo prossimo sito inizia qui.</Heading
+      >
+      <Eyebrow variant="tag">Astrology Standard</Eyebrow>
+      <Img
+        slot="column2"
+        src={lumos_background}
+        width={1920}
+        height={1080}
+        loading="eager"
+        fetchPriority="high"
+      />
+    </ContentWrapper>
+  </Section>
+</Layout>

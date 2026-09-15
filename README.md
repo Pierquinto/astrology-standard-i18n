@@ -1,16 +1,20 @@
 # Astrology Standard i18n
 
-A static-first Astro starter for multilingual content sites. Italian is the unprefixed default locale and English is served under `/en/`, so turning on translation never requires changing your primary URLs.
+The multilingual variant of Astrology Standard: Lumos components and tokens, Astro's native i18n routing, typed UI copy and localized content collections.
 
-## Included
+## Routing policy
 
-- Native Astro i18n routing with Italian and English examples.
-- Typed UI dictionaries in `src/i18n/ui.ts`.
-- Localized, schema-validated content collection with `locale` and `translationKey`.
-- Semantic CSS tokens in `src/styles/tokens.css`, ready for Astrology's Style Guide sidebar.
-- No client framework or shipped JavaScript by default.
-- CI and weekly dependency updates.
+Italian is the unprefixed primary locale (`/`, `/about`); English is available under `/en/`. This lets a monolingual Italian site adopt English later without breaking its original URLs.
+
+## What you get
+
+- Lumos component primitives, local fonts, responsive layouts and accessibility patterns.
+- Semantic tokens in `src/styles/tokens.css`, editable through Astrology's Style Guide.
+- Native Astro i18n configuration, UI dictionaries and localised article entries linked by `translationKey`.
+- Static output, sitemap, robots route, CI and Dependabot.
 
 ## Use it
 
-Create a repository from this GitHub template, update `site` in `astro.config.mjs`, then run `npm install` and `npm run dev`. Use Node 22.12+.
+Select **Astrology Standard i18n** when creating a project in Astrology, or use this repository as a GitHub template. Use Node 22.12+.
+
+Read `LUMOS.md` before building new components or CSS. This template is based on [Lumos for Astro](https://github.com/lumosframework/lumos-for-astro) and retains its MIT license.
