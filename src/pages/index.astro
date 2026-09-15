@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { t } from '../i18n/ui'
+const copy = t('it')
+---
+<BaseLayout locale="it" title={copy.hero} description={copy.lede}>
+  <section class="hero"><p class="eyebrow">{copy.starter}</p><h1>{copy.hero}</h1><p class="lede">{copy.lede}</p><a class="button" href="/about">{copy.cta}</a></section>
+</BaseLayout>

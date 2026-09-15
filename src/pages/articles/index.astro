@@ -1,0 +1,6 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+const articles = (await getCollection('articles')).filter(({ data }) => !data.draft && data.locale === 'it').sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+---
+<BaseLayout locale="it" title="Articoli"><section class="prose"><p class="eyebrow">Journal</p><h1>Articoli</h1><ul class="article-list">{articles.map(({ id, data }) => <li><a href={`/articles/${id}/`}><strong>{data.title}</strong><span>{data.description}</span></a></li>)}</ul></section></BaseLayout>

@@ -1,0 +1,7 @@
+---
+import { t, type Locale } from '../i18n/ui'
+const { locale = 'it' } = Astro.props as { locale?: Locale }
+const copy = t(locale)
+const prefix = locale === 'it' ? '' : `/${locale}`
+---
+<header class="site-header"><a class="brand" href={prefix || '/'}>{copy.brand}</a><nav aria-label="Main navigation"><a href={`${prefix}/about`} data-astro-prefetch="hover">{copy.about}</a><a href={`${prefix}/articles`} data-astro-prefetch="hover">{copy.articles}</a><a href={locale === 'it' ? '/en/' : '/'} hreflang={locale === 'it' ? 'en' : 'it'}>{locale === 'it' ? 'EN' : 'IT'}</a></nav></header>
