@@ -1,0 +1,59 @@
+---
+type Locale = "it" | "en";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const pathname = Astro.url.pathname;
+const isEnglishRoute = pathname === "/en" || pathname.startsWith("/en/");
+const localPath = isEnglishRoute ? pathname.replace(/^\/en(?=\/|$)/, "") || "/" : pathname;
+const hrefFor = (target: Locale) => target === "it" ? localPath : `/en${localPath === "/" ? "/" : localPath}`;
+const labels: Record<Locale, string> = { it: "Italiano", en: "English" };
+---
+
+<details class="language-switcher">
+  <summary aria-label="Choose language">{labels[locale]}</summary>
+  <ul aria-label="Languages">
+    {(["it", "en"] as Locale[]).map((target) => (
+      <li>
+        <a
+          href={hrefFor(target)}
+          hreflang={target}
+          lang={target}
+          aria-current={target === locale ? "true" : undefined}
+          data-locale-choice={target}
+        >{labels[target]}</a>
+      </li>
+    ))}
+  </ul>
+</details>
+
+<script>
+  const preferenceKey = "astrology:preferred-locale";
+  const choices = document.querySelectorAll<HTMLAnchorElement>("[data-locale-choice]");
+  choices.forEach((choice) => choice.addEventListener("click", () => {
+    localStorage.setItem(preferenceKey, choice.dataset.localeChoice ?? "it");
+  }));
+
+  // Redirect only an unshared first visit to the home page. Deep links and
+  // explicit user choices always win, keeping URLs stable for SEO and sharing.
+  if (location.pathname === "/" && !localStorage.getItem(preferenceKey)) {
+    const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+    const preferred = browserLanguages.find((language) => /^en(?:-|$)/i.test(language));
+    if (preferred) location.replace("/en/");
+  }
+</script>
+
+<style is:global>
+  @layer components {
+    .language-switcher { position: relative; font-size: var(--text-small); }
+    .language-switcher summary { cursor: pointer; list-style: none; color: var(--text-2); }
+    .language-switcher summary::-webkit-details-marker { display: none; }
+    .language-switcher summary::after { content: "⌄"; margin-left: .35em; }
+    .language-switcher ul { position: absolute; z-index: 5; right: 0; display: grid; gap: .25rem; width: max-content; margin: .5rem 0 0; padding: .5rem; list-style: none; background: var(--surface); border: var(--border-width) solid var(--border); border-radius: var(--radius-small); box-shadow: var(--shadow-small); }
+    .language-switcher a { display: block; padding: .35rem .5rem; color: var(--text-2); text-decoration: none; border-radius: calc(var(--radius-small) / 2); }
+    .language-switcher a[aria-current="true"], .language-switcher a:hover { color: var(--text); background: var(--background); }
+  }
+</style>

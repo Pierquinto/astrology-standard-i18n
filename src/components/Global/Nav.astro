@@ -3,6 +3,7 @@ import Icon from "@/components/Media/Icon.astro";
 import NavLink from "@/components/Global/NavLink.astro";
 import logo from "@/assets/logo/logo.svg";
 import { SITE_NAME } from "@/consts.ts";
+import LanguageSwitcher from "@/components/Global/LanguageSwitcher.astro";
 
 interface Props {
   /** Set to `false` to skip rendering this component and its children. */
@@ -13,9 +14,13 @@ interface Props {
    * `paddingTop="navoverlap"` to clear the bar.
    */
   overlap?: boolean;
+  /** Active site locale. */
+  locale?: "it" | "en";
 }
 
-const { render = true, overlap = false } = Astro.props;
+const { render = true, overlap = false, locale = "it" } = Astro.props;
+const prefix = locale === "it" ? "" : `/${locale}`;
+const labels = locale === "it" ? { home: "Home", about: "Chi siamo" } : { home: "Home", about: "About" };
 ---
 
 {
@@ -37,8 +42,9 @@ const { render = true, overlap = false } = Astro.props;
         <nav class="nav_menu" id="nav-menu" aria-label="Main">
           <div class="nav_menu_inner">
             <ul class="nav_links">
-              <NavLink href="/">Home</NavLink>
-              <NavLink href="/example-components">Example Components</NavLink>
+              <NavLink href={prefix || "/"}>{labels.home}</NavLink>
+              <NavLink href={`${prefix}/about`}>{labels.about}</NavLink>
+              <li><LanguageSwitcher locale={locale} /></li>
             </ul>
           </div>
         </nav>

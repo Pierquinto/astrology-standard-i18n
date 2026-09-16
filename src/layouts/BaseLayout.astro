@@ -15,8 +15,8 @@ type Props = SeoProps & {
    * `paddingTop="navoverlap"` to clear the bar.
    */
   overlap?: boolean;
-  /** BCP 47 locale for the document, passed by localized routes. */
-  locale?: string;
+  /** Active locale, passed by localized routes. */
+  locale?: "it" | "en";
 };
 
 const { theme = "inherit", overlap = false, locale = "it", ...seo } = Astro.props;
@@ -30,7 +30,7 @@ const { theme = "inherit", overlap = false, locale = "it", ...seo } = Astro.prop
   </head>
   <body>
     <SkipLink />
-    <Nav overlap={overlap} />
+    <Nav overlap={overlap} locale={locale} />
     <main id="main" tabindex="-1">
       <slot />
     </main>
